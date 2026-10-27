@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola Mundo</title>
+</head>
+<body>
+    <h1>¡Hola Mundo!</h1>
+    <div id="mensajes">Cargando...</div>
+
+    <script>
+        fetch("/api/mensajes")
+            .then(r => r.json())
+            .then(datos => {
+                const div = document.getElementById("mensajes");
+                let html = "<ul>";
+                datos.forEach(function(m) {
+                    html += "<li>" + m.mensaje + "</li>";
+                });
+                html += "</ul>";
+                div.innerHTML = html;
+            })
+            .catch(function(e) {
+                document.getElementById("mensajes").innerHTML = "<p>Error: " + e + "</p>";
+            });
+    </script>
+</body>
+</html>
